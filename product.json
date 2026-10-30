@@ -6,7 +6,7 @@
   "description": "Asynchronous file-based Email Validation checks.",
   "official_site": "https://checknumber.ai",
   "landing_page": "https://checknumber.ai/products/email-validation",
-  "canonical_docs": "https://docs.checknumber.ai/email-bulk-checker",
+  "canonical_docs": "https://docs.checknumber.ai/email-deliverability-checker/",
   "dashboard": "https://platform.checknumber.ai",
   "base_url": "https://api.checknumber.ai",
   "mode": "async",
@@ -37,16 +37,18 @@
       "name": "Upload Task",
       "doc_slug": "email-bulk-checker",
       "input_kind": "email",
-      "min_numbers": 2000,
+      "min_numbers": 1,
       "max_numbers": 10000000,
       "result_fields": [
         "email",
         "activated"
-      ]
+      ],
+      "min_billable_numbers": 2000,
+      "available": true
     }
   ],
   "pricing_url": "https://checknumber.ai/pricing",
   "maintainer": "CheckNumber",
   "license": "MIT",
-  "last_reviewed": "2026-08-18"
+  "last_reviewed": "2026-10-30"
 }

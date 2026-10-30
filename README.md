@@ -1,6 +1,6 @@
 # Email Validation API — official examples | CheckNumber
 
-This repository documents the CheckNumber Email Validation API integration contract using facts from the expansion manifest.
+This repository documents the CheckNumber Email Validation API integration contract.
 
 - Product page: https://checknumber.ai/products/email-validation
 - API base URL: `https://api.checknumber.ai`
@@ -21,11 +21,11 @@ curl -X POST "https://api.checknumber.ai/v1/gettasks" -H "X-API-Key: ${CHECKNUMB
 
 | Code | Name | Input | Limits | Result fields | Documentation |
 | --- | --- | --- | --- | --- | --- |
-| `email_check` | Upload Task | email | 2000–10000000 rows | `email, activated` | [docs](https://docs.checknumber.ai/email-bulk-checker) |
+| `email_check` | Upload Task | email | 1–10,000,000 upload rows; billing floor 2,000 | `email, activated` | [docs](https://docs.checknumber.ai/email-deliverability-checker/) |
 
 ## Response and boundaries
 
-- Treat only an explicit determined result as a positive or negative classification; `undetermined`/`exists=false` is not a negative.
+- Interpret exported CSV rows only after the task is exported. A failed request, missing field or unavailable result is not a confirmed negative; preserve the exported values rather than applying a synchronous-batch `exists` rule.
 - Authentication keys must come from environment variables or a secret manager; never commit keys or call private/internal endpoints.
 - Product prices can change. Check the official pricing page at runtime; this repository intentionally does not hard-code a price.
 - Use only identifiers you are authorized to process and follow applicable privacy, platform, and data-protection requirements.
@@ -36,8 +36,16 @@ Seven self-contained examples are provided under `examples/`: Python, Node.js, G
 
 ## Official resources
 
-- `email_check`: https://docs.checknumber.ai/email-bulk-checker
+- `email_check`: https://docs.checknumber.ai/email-deliverability-checker/
 - Pricing: https://checknumber.ai/pricing
 - OpenAPI contract: [openapi.yaml](openapi.yaml)
 
-Last reviewed: 2026-08-18.
+Last reviewed: 2026-10-30.
+
+## Upload and billing limits verified 2026-10-30
+
+- `email_check`: upload 1–10,000,000 entries; minimum billable quantity 2,000.
+
+Upload minimum and minimum billable quantity are different. A smaller accepted upload can still be billed at the stated minimum; a wholly failed task with zero processed entries is not charged a minimum. A billable quantity of 0 means no billing floor. Check current pricing before submitting.
+
+Get an API key: https://platform.checknumber.ai?utm_source=github&utm_medium=referral&utm_campaign=checkernumber_email-validation-api
